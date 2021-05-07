@@ -1,0 +1,166 @@
+.Timer {
+  position: absolute;
+  width: 33%;
+  height: 150px;
+  left: 33.33%;
+  margin-top: 15%;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2em;
+  color: rgb(25, 173, 75);
+  margin-bottom: 15%;
+}
+
+.Timer-popup {
+  position: absolute;
+  padding: 40px 20px 20px 20px;
+  z-index: 1;
+  background-color: rgb(133, 181, 253);
+  border: 2px solid rgb(0, 102, 255);
+
+  margin-top: 20%;
+
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.btn-popup-confirm {
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 4px;
+  width: calc(50% - 5px);
+  transition: all ease-in-out 0.3s;
+
+  background-color: rgb(0, 102, 255);
+  margin-right: 5px;
+  margin-top: 10%;
+}
+
+.btn-popup-confirm:hover {
+  background-color: rgb(2, 90, 221);
+  cursor: pointer;
+}
+
+.btn-popup-cancel {
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 4px;
+  width: calc(50% - 5px);
+  transition: all ease-in-out 0.3s;
+
+  background-color: rgb(204, 29, 29);
+  margin-left: 5px;
+  margin-top: 10%;
+}
+
+.btn-popup-cancel:hover {
+  background-color: rgb(187, 27, 27);
+  cursor: pointer;
+}
+
+.Timer-time {
+  background: rgb(170, 170, 170);
+  line-height: 150px;
+  text-align: center;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  font-size: 3em;
+  font-weight: 500;
+  color: rgb(37, 37, 37);
+}
+
+.divider {
+  color: rgb(170, 170, 170);
+  background-color: rgb(170, 170, 170);
+  margin-top: 10px;
+  height: 3px;
+  border-width: 2px;
+  margin-bottom: 10px;
+}
+
+.btn {
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 4px;
+  width: calc(50% - 5px);
+  margin: 10px auto;
+  transition: all ease-in-out 0.3s;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.start {
+  background-color: rgb(25, 173, 75);
+  margin-right: 5px;
+}
+
+.start:hover {
+  background-color: rgb(26, 165, 72);
+}
+
+.pause {
+  background-color: rgb(79, 4, 199);
+  margin-right: 5px;
+}
+
+.pause:hover {
+  background-color: rgb(75, 5, 187);
+}
+
+.restart {
+  background-color: rgb(204, 29, 29);
+  margin-left: 5px;
+}
+
+.restart:hover {
+  background-color: rgb(187, 27, 27);
+}
+
+.addTime {
+  background-color: rgb(0, 102, 255);
+  width: 100%;
+}
+
+.addTime:hover {
+  background-color: rgb(2, 90, 221);
+}
+
+.circle {
+  display: inline-block;
+  position: absolute;
+  align-items: center;
+  max-width: 100%;
+  margin-top: -30px;
+  height: 50px;
+  width: 50px;
+  background-color: white;
+  border-radius: 50%;
+  border: 3px solid rgb(170, 170, 170);
+
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fas {
+}
+
+.fa-stopwatch {
+  display: block;
+  margin-top: 5px;
+  font-size: 2rem;
+}
