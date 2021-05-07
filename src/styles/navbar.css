@@ -1,0 +1,23 @@
+.Navbar {
+  font-size: 1.5rem;
+  margin: 30px;
+}
+
+a {
+  color: rgb(105, 105, 105);
+  margin: 4%;
+}
+
+.links {
+  margin: 0 80px;
+}
+
+img {
+  width: 400px;
+  height: auto;
+}
+
+.active-link {
+  color: rgb(146, 80, 253);
+  border-bottom: 3px solid rgb(146, 80, 253);
+}

@@ -27,6 +27,11 @@ function Timer() {
     setShowPopup(false);
   }
 
+  function renderPopup() {
+    pause();
+    setShowPopup(true);
+  }
+
   function formatTime(time) {
     const seconds = `${time % 60}`.padStart(2, "0");
     const minutes = `${Math.floor((time / 60) % 60)}`.padStart(2, "0");
@@ -63,7 +68,7 @@ function Timer() {
         <h2>Selected Task</h2>
         <div className="Timer-time">
           <span className="circle">
-            <i className="fas fa-stopwatch"></i>
+            <i className="fas fa-stopwatch" />
           </span>
 
           {formatTime(time)}
@@ -83,8 +88,8 @@ function Timer() {
           Restart
         </button>
         <br />
-        <button className="btn addTime" onClick={() => setShowPopup(true)}>
-          Add Time <i className="fas fa-play-circle"></i>
+        <button className="btn addTime" onClick={renderPopup}>
+          Add Time <i className="fas fa-play-circle" />
         </button>
       </div>
     </>

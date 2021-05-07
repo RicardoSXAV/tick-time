@@ -3,7 +3,6 @@
   width: 33%;
   height: 150px;
   left: 33.33%;
-  margin-top: 15%;
 }
 
 h2 {
@@ -20,7 +19,7 @@ h2 {
   background-color: rgb(133, 181, 253);
   border: 2px solid rgb(0, 102, 255);
 
-  margin-top: 20%;
+  margin-top: 2%;
 
   left: 50%;
   transform: translate(-50%, 0);
@@ -68,7 +67,8 @@ h2 {
 
 .Timer-time {
   background: rgb(170, 170, 170);
-  line-height: 150px;
+  height: 200px;
+  line-height: 200px;
   text-align: center;
   align-items: center;
   font-family: "Roboto", sans-serif;
@@ -87,6 +87,7 @@ h2 {
 }
 
 .btn {
+  font-size: 2rem;
   border: none;
   color: white;
   text-align: center;
