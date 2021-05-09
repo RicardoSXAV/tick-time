@@ -1,7 +1,7 @@
 import { Route, Switch } from "react-router";
 import Navbar from "./components/Navbar";
 import Timer from "./components/Timer";
-import Tasks from "./components/Tasks";
+import TaskList from "./components/TaskList";
 import Statistics from "./components/Statistics";
 
 import "./styles/globalStyles.css";
@@ -12,7 +12,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path="/" render={() => <Timer />} />
-        <Route exact path="/tasks" render={() => <Tasks />} />
+        <Route exact path="/tasks" render={() => <TaskList />} />
         <Route exact path="/statistics" render={() => <Statistics />} />
       </Switch>
     </>
