@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import useStickyState from "../hooks/useStickyState";
 import "../styles/timer.css";
 
-function Timer({ taskName, getTime }) {
+function Timer({ toggledTask, getTime }) {
   const [time, setTime] = useStickyState(0, "time");
   const [isActive, setIsActive] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -11,7 +11,7 @@ function Timer({ taskName, getTime }) {
   const increment = useRef(null);
 
   function start() {
-    if (taskName || taskName !== "") {
+    if (toggledTask || toggledTask !== "") {
       increment.current = setInterval(() => setTime((time) => time + 1), 1000);
       setIsActive(true);
     } else {
@@ -71,7 +71,7 @@ function Timer({ taskName, getTime }) {
         className="Timer-popup"
         style={showPopup ? { display: "block" } : { display: "none" }}
       >
-        <p>Time added to '{taskName}'</p>
+        <p>Time added to '{toggledTask}'</p>
         <button className="btn-popup-confirm" onClick={addTime}>
           OK
         </button>
@@ -86,7 +86,7 @@ function Timer({ taskName, getTime }) {
         className="Timer"
         style={showPopup ? { filter: "opacity(0.5)" } : {}}
       >
-        <h2>{taskName}</h2>
+        <h2>{toggledTask}</h2>
         <div className="Timer-time">
           <span className="circle">
             <i className="fas fa-stopwatch" />

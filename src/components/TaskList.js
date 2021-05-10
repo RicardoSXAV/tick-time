@@ -214,7 +214,7 @@ function TaskList({
     const filtered = tasks.filter((task) => task.id !== id);
     setTasks([newObject, ...filtered]);
 
-    const updateTimer = tasks.forEach((task) => {
+    const updateTimer = tasks.map((task) => {
       if (task.isSelected === true) {
         return task.taskName;
       }

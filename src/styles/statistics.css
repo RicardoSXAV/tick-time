@@ -1,0 +1,87 @@
+.Statistics {
+  position: absolute;
+  width: 40%;
+
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.Statistics h1 {
+  color: rgb(61, 76, 88);
+  font-size: 2.5rem;
+  font-style: italic;
+  margin-bottom: 50px;
+}
+
+.Statistics-totalTime {
+  display: flex;
+  background-color: rgb(186, 143, 255);
+  border: 3px solid rgb(135, 88, 209);
+
+  height: 150px;
+
+  justify-content: center;
+}
+
+.Statistics-totalTime p {
+  font-size: 1.5rem;
+  align-self: center;
+}
+
+.Statistics-totalTime i {
+  font-size: 4rem;
+
+  margin-top: 5%;
+  margin-right: 5%;
+}
+
+.Statistics h2 {
+  color: rgb(61, 76, 88);
+  font-size: 2rem;
+  font-style: italic;
+
+  margin: 20px 0 0 0;
+}
+
+.Statistics-sortingTasks {
+  background-color: rgb(219, 235, 248);
+  border: 3px solid rgb(183, 198, 211);
+
+  margin-top: 20px;
+}
+
+.single-sorted-task {
+  display: flex;
+  background-color: white;
+  border: 2px solid rgb(207, 221, 233);
+  border-radius: 80px;
+  margin: 20px 40px;
+  padding: 30px;
+}
+
+.single-sorted-task p {
+  margin-left: 10%;
+}
+
+.single-sorted-task h3 {
+  color: rgb(140, 0, 255);
+  position: absolute;
+  left: 80%;
+}
+
+.number-circle {
+  color: rgb(207, 221, 233);
+  font-size: 1.5rem;
+
+  display: flex;
+  position: absolute;
+  align-self: center;
+  background-color: white;
+  padding: 13px 20px;
+  border: 2px solid rgb(207, 221, 233);
+  border-radius: 100%;
+  left: 8%;
+}
