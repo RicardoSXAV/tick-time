@@ -155,13 +155,39 @@ h2 {
   right: 0;
   margin-left: auto;
   margin-right: auto;
+
+  transition: all ease-in-out 0.5s;
 }
 
-.fas {
+.circle:hover {
+  cursor: pointer;
+  filter: brightness(0.9);
+  transition: all ease-in-out 0.5s;
 }
 
-.fa-stopwatch {
+.fa-stopwatch,
+.fa-stopwatch-20 {
   display: block;
   margin-top: 5px;
   font-size: 2rem;
+}
+
+.count-down-form {
+  display: flex;
+  position: absolute;
+  width: 60%;
+  margin-top: 8%;
+
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  height: 60%;
+  align-items: center;
+}
+
+.count-down-form input {
+  margin: 10px;
+  padding: 20px 20px;
 }

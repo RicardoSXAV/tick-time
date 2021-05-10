@@ -1,19 +1,68 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useStickyState from "../hooks/useStickyState";
 import "../styles/timer.css";
 
 function Timer({ toggledTask, getTime }) {
   const [time, setTime] = useStickyState(0, "time");
   const [isActive, setIsActive] = useState(false);
+  const [isStopwatch, setIsStopwatch] = useStickyState(true, "isStopwatch");
   const [showPopup, setShowPopup] = useState(false);
   const [alert, setAlert] = useState("");
 
+  const [countDownStart, setCountDownStart] = useStickyState(
+    false,
+    "countDownStart"
+  );
+  const [countSeconds, setCountSeconds] = useStickyState("", "countSeconds");
+  const [countMinutes, setCountMinutes] = useStickyState("", "countMinutes");
+  const [countHours, setCountHours] = useStickyState("", "countHours");
+  const [countTime, setCountTime] = useStickyState(0, "countTime");
+  const [originalCountTime, setOriginalCountTime] = useStickyState(
+    0,
+    "originalCountTime"
+  );
+
   const increment = useRef(null);
+  const decrement = useRef(countTime);
+
+  useEffect(() => {
+    if (countTime === 0 && countDownStart === true) {
+      clearInterval(decrement.current);
+
+      pause();
+      setShowPopup(true);
+    }
+  });
 
   function start() {
     if (toggledTask || toggledTask !== "") {
-      increment.current = setInterval(() => setTime((time) => time + 1), 1000);
-      setIsActive(true);
+      if (isStopwatch) {
+        increment.current = setInterval(
+          () => setTime((time) => time + 1),
+          1000
+        );
+        setIsActive(true);
+      } else {
+        const seconds = formatString(
+          `${countHours.padStart(2, "0")}:${countMinutes.padStart(
+            2,
+            "0"
+          )}:${countSeconds.padStart(2, "0")}`
+        );
+
+        if (countTime === 0) {
+          setCountTime(seconds);
+          setOriginalCountTime(seconds);
+        }
+
+        decrement.current = setInterval(
+          () => setCountTime((time) => time - 1),
+          1000
+        );
+
+        setIsActive(true);
+        setCountDownStart(true);
+      }
     } else {
       setAlert("Before start, select a task");
     }
@@ -21,27 +70,88 @@ function Timer({ toggledTask, getTime }) {
 
   function pause() {
     clearInterval(increment.current);
+    clearInterval(decrement.current);
     setIsActive(false);
   }
 
   function restart() {
     clearInterval(increment.current);
+    clearInterval(decrement.current);
     setTime(0);
+    setCountTime(0);
+    setCountDownStart(false);
     setIsActive(false);
   }
 
   function addTime() {
-    getTime(time);
-    setShowPopup(false);
-    setTime(0);
+    if (isStopwatch) {
+      getTime(time);
+      setShowPopup(false);
+      setTime(0);
+    } else {
+      getTime(originalCountTime);
+      setShowPopup(false);
+      setCountDownStart(false);
+    }
+  }
+
+  function handleHourChange(event) {
+    setCountHours(event.target.value);
+  }
+
+  function handleMinuteChange(event) {
+    setCountMinutes(event.target.value);
+  }
+
+  function handleSecondChange(event) {
+    setCountSeconds(event.target.value);
+  }
+
+  function renderCountdow() {
+    return (
+      <form id="count-form" className="count-down-form">
+        <input
+          value={countHours}
+          type="number"
+          placeholder="00"
+          min="0"
+          max="24"
+          onChange={handleHourChange}
+        />
+        :
+        <input
+          value={countMinutes}
+          type="number"
+          placeholder="00"
+          min="0"
+          max="59"
+          onChange={handleMinuteChange}
+        />
+        :
+        <input
+          value={countSeconds}
+          type="number"
+          placeholder="00"
+          min="0"
+          max="59"
+          onChange={handleSecondChange}
+        />
+      </form>
+    );
   }
 
   function renderPopup() {
-    if (time === 0) {
+    if (time === 0 && isStopwatch === true) {
       setAlert("Start the timer before add time");
-    } else {
+    } else if (time !== 0 && countTime === 0) {
       pause();
       setShowPopup(true);
+    } else if (time === 0 && countTime !== 0) {
+      setAlert("Wait the countdown finish before add time");
+    } else if (countTime === 0 && countDownStart === true) {
+      setAlert("Time added");
+    } else if (isStopwatch === false && countDownStart === false) {
+      setAlert("Start the countdown before add time");
     }
   }
 
@@ -55,6 +165,19 @@ function Timer({ toggledTask, getTime }) {
     } else {
       return `${minutes} : ${seconds}`;
     }
+  }
+
+  function formatString(str) {
+    var p = str.split(":"),
+      s = 0,
+      m = 1;
+
+    while (p.length > 0) {
+      s += m * parseInt(p.pop(), 10);
+      m *= 60;
+    }
+
+    return s;
   }
 
   return (
@@ -88,11 +211,21 @@ function Timer({ toggledTask, getTime }) {
       >
         <h2>{toggledTask}</h2>
         <div className="Timer-time">
-          <span className="circle">
-            <i className="fas fa-stopwatch" />
+          <span className="circle" onClick={() => setIsStopwatch(!isStopwatch)}>
+            <i
+              className={
+                isStopwatch ? `fas fa-stopwatch` : "fas fa-stopwatch-20"
+              }
+            />
           </span>
 
-          {formatTime(time)}
+          {isStopwatch && countDownStart === false ? (
+            formatTime(time)
+          ) : isStopwatch === false && countDownStart === false ? (
+            renderCountdow()
+          ) : (
+            <div>{formatTime(countTime)}</div>
+          )}
         </div>
         <div className="divider" />
         {isActive ? (
