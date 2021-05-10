@@ -21,3 +21,12 @@ img {
   color: rgb(146, 80, 253);
   border-bottom: 3px solid rgb(146, 80, 253);
 }
+
+.single-link {
+  transition: all ease-in-out 0.1s;
+}
+
+.single-link:hover {
+  color: rgb(146, 80, 253);
+  transition: all ease-in-out 0.1s;
+}

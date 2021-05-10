@@ -1,33 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useStickyState from "../hooks/useStickyState";
 import { v4 as uuidv4 } from "uuid";
 import Task from "./Task";
 
-function TaskList() {
+function TaskList({
+  timeToAdd,
+  setTimeToAdd,
+  haveTimeToAdd,
+  setHaveTimeToAdd,
+  toggleTask,
+}) {
   const [inputTask, setInputTask] = useState("");
   const [inputSubTask, setInputSubTask] = useState("");
-  const [tasks, setTasks] = useState([
-    /*     {
-      id: 1,
-      taskName: "Estudar Javascript",
-      totalTime: 3652,
-      isCompleted: false,
-      isSelected: true,
-      subTasks: [{ subTaskName: "Aprender DOM", isCompleted: true }],
-    },
-    {
-      id: 2,
-      taskName: "Estudar HTML",
-      totalTime: 2458,
-      isCompleted: true,
-      isSelected: false,
-      subTasks: [{ subTaskName: "Ver sobre tabelas", isCompleted: true }],
-    }, */
-  ]);
+  const [tasks, setTasks] = useStickyState([], "tasks");
+
   const [showWindow, setShowWindow] = useState(false);
   const [alert, setAlert] = useState("");
   const [selectedTask, setSelectedTask] = useState({});
 
+  useEffect(() => {
+    if (haveTimeToAdd) {
+      const filteredTasks = tasks.filter((task) => task.isSelected === false);
+      const taskToAdd = tasks.find((task) => task.isSelected === true);
+      taskToAdd.totalTime = taskToAdd.totalTime + timeToAdd;
+
+      setTasks([taskToAdd, ...filteredTasks]);
+      setHaveTimeToAdd(false);
+      setTimeToAdd(0);
+    }
+  });
+
+  /*  function useStickyState(defaultValue, key) {
+    const [value, setValue] = useState(() => {
+      const stickyValue = window.localStorage.getItem(key);
+
+      return stickyValue !== null ? JSON.parse(stickyValue) : defaultValue;
+    });
+
+    useEffect(() => {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    }, [key, value]);
+
+    return [value, setValue];
+  } */
+
   function renderWindow(id) {
+    window.scrollTo(0, 0);
     const selected = tasks.find((task) => task.id === id);
     setSelectedTask(selected);
     setShowWindow(true);
@@ -77,6 +95,7 @@ function TaskList() {
     selectedTask.isCompleted = true;
     setTasks([selectedTask, ...filteredTasks]);
     setShowWindow(false);
+    toggleTask("");
   }
 
   function undoComplete() {
@@ -85,6 +104,14 @@ function TaskList() {
     setTasks([selectedTask, ...filteredTasks]);
     setShowWindow(false);
   }
+
+  /*  function addTimeToTask() {
+    const filteredTasks = tasks.filter((task) => task.isSelected === false);
+    const taskToAdd = tasks.find((task) => task.isSelected === true);
+    taskToAdd.totalTime = taskToAdd.totalTime + timeToAdd;
+
+    setTasks([taskToAdd, ...filteredTasks]);
+  } */
 
   function addTask(name) {
     if (inputTask.length === 0) {
@@ -105,6 +132,17 @@ function TaskList() {
   }
 
   function addSubTask(name) {
+    const filteredTasks = tasks.filter((task) => task.id !== selectedTask.id);
+    selectedTask.subTasks.unshift({
+      id: uuidv4(),
+      subTaskName: name,
+      isCompleted: false,
+    });
+
+    setTasks([selectedTask, ...filteredTasks]);
+
+    /* Old (localStorage wasn't working)
+    
     if (inputSubTask.length === 0) {
       setAlert("Please, enter a name");
     } else {
@@ -113,10 +151,15 @@ function TaskList() {
         subTaskName: name,
         isCompleted: false,
       });
-    }
+    } */
   }
 
   function removeTask(id) {
+    const thisTask = tasks.find((task) => task.id === id);
+    if (thisTask.isSelected || thisTask.isCompleted) {
+      toggleTask("");
+    }
+
     setShowWindow(false);
     setSelectedTask({});
 
@@ -157,7 +200,8 @@ function TaskList() {
     setInputSubTask("");
   }
 
-  function toggleOne(id, isSelected) {
+  function toggleOne(id, name, isSelected) {
+    console.log(isSelected);
     tasks.forEach((task) => {
       if (task.isSelected === true) {
         task.isSelected = false;
@@ -169,9 +213,19 @@ function TaskList() {
 
     const filtered = tasks.filter((task) => task.id !== id);
     setTasks([newObject, ...filtered]);
+
+    const updateTimer = tasks.forEach((task) => {
+      if (task.isSelected === true) {
+        return task.taskName;
+      }
+    });
+
+    toggleTask(updateTimer);
   }
 
-  function toggleCheck(id) {
+  function toggleCheck(name, id) {
+    const filteredTasks = tasks.filter((task) => task.id !== selectedTask.id);
+
     const filtered = selectedTask.subTasks.filter(
       (subtask) => subtask.id !== id
     );
@@ -182,10 +236,7 @@ function TaskList() {
     newObject.isCompleted = !newObject.isCompleted;
 
     selectedTask.subTasks = [...filtered, newObject];
-
-    const filteredTasks = tasks.filter((task) => task.id !== selectedTask.id);
     setTasks([selectedTask, ...filteredTasks]);
-    console.log(selectedTask.subTasks);
   }
 
   function formatTime(time) {
@@ -253,12 +304,12 @@ function TaskList() {
                 {subTask.isCompleted ? (
                   <i
                     className="fas fa-check-square"
-                    onClick={() => toggleCheck(subTask.id)}
+                    onClick={() => toggleCheck(subTask.subTaskName, subTask.id)}
                   />
                 ) : (
                   <i
                     className="far fa-square"
-                    onClick={() => toggleCheck(subTask.id)}
+                    onClick={() => toggleCheck(subTask.subTaskName, subTask.id)}
                   />
                 )}
                 <p
@@ -270,6 +321,7 @@ function TaskList() {
                   {subTask.subTaskName}
                 </p>
                 <i
+                  style={selectedTask.isCompleted ? { display: "none" } : {}}
                   className="fas fa-times-circle"
                   onClick={() => removeSubTask(subTask.id)}
                 />
@@ -314,7 +366,7 @@ function TaskList() {
 
         <div className="divider" />
 
-        <h1>Completed Tasks</h1>
+        <h1 className="completed-h1">Completed Tasks</h1>
 
         {renderCompletedTasks()}
       </div>

@@ -1,15 +1,22 @@
 import { useRef, useState } from "react";
+import useStickyState from "../hooks/useStickyState";
 import "../styles/timer.css";
 
-function Timer() {
-  const [time, setTime] = useState(0);
+function Timer({ taskName, getTime }) {
+  const [time, setTime] = useStickyState(0, "time");
   const [isActive, setIsActive] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [alert, setAlert] = useState("");
+
   const increment = useRef(null);
 
   function start() {
-    increment.current = setInterval(() => setTime((time) => time + 1), 1000);
-    setIsActive(true);
+    if (taskName || taskName !== "") {
+      increment.current = setInterval(() => setTime((time) => time + 1), 1000);
+      setIsActive(true);
+    } else {
+      setAlert("Before start, select a task");
+    }
   }
 
   function pause() {
@@ -24,12 +31,18 @@ function Timer() {
   }
 
   function addTime() {
+    getTime(time);
     setShowPopup(false);
+    setTime(0);
   }
 
   function renderPopup() {
-    pause();
-    setShowPopup(true);
+    if (time === 0) {
+      setAlert("Start the timer before add time");
+    } else {
+      pause();
+      setShowPopup(true);
+    }
   }
 
   function formatTime(time) {
@@ -47,10 +60,18 @@ function Timer() {
   return (
     <>
       <div
+        className="alert-popup"
+        style={alert ? { display: "block" } : { display: "none" }}
+      >
+        {alert}
+        <br />
+        <button onClick={() => setAlert("")}>OK</button>
+      </div>
+      <div
         className="Timer-popup"
         style={showPopup ? { display: "block" } : { display: "none" }}
       >
-        <p>Time added to the TASK NAME</p>
+        <p>Time added to '{taskName}'</p>
         <button className="btn-popup-confirm" onClick={addTime}>
           OK
         </button>
@@ -65,7 +86,7 @@ function Timer() {
         className="Timer"
         style={showPopup ? { filter: "opacity(0.5)" } : {}}
       >
-        <h2>Selected Task</h2>
+        <h2>{taskName}</h2>
         <div className="Timer-time">
           <span className="circle">
             <i className="fas fa-stopwatch" />

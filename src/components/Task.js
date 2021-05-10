@@ -27,12 +27,12 @@ function Task({
         (isSelected ? (
           <i
             className="Task-toggle fas fa-toggle-on"
-            onClick={() => toggleOne(id, isSelected)}
+            onClick={() => toggleOne(id, name, isSelected)}
           />
         ) : (
           <i
             className="Task-toggle fas fa-toggle-off"
-            onClick={() => toggleOne(id, isSelected)}
+            onClick={() => toggleOne(id, name, isSelected)}
           />
         ))}
       <i className="fas fa-times-circle" onClick={() => remove(id)} />

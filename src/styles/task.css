@@ -124,6 +124,10 @@
   color: rgb(87, 108, 124);
 }
 
+.Task-list .completed-h1 {
+  color: rgb(146, 80, 253);
+}
+
 .Task {
   display: flex;
 

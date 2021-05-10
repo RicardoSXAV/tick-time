@@ -11,13 +11,28 @@ function Navbar() {
         <img src={Logo} alt="Logo" />
       </div>
       <div className="links">
-        <NavLink activeClassName="active-link" exact to="/">
+        <NavLink
+          className="single-link"
+          activeClassName="active-link"
+          exact
+          to="/"
+        >
           <i className="fas fa-clock" /> Chronometer
         </NavLink>
-        <NavLink activeClassName="active-link" exact to="/tasks">
+        <NavLink
+          className="single-link"
+          activeClassName="active-link"
+          exact
+          to="/tasks"
+        >
           <i className="fas fa-tasks" /> Tasks
         </NavLink>
-        <NavLink activeClassName="active-link" exact to="/statistics">
+        <NavLink
+          className="single-link"
+          activeClassName="active-link"
+          exact
+          to="/statistics"
+        >
           <i className="fas fa-signal" /> Statistics
         </NavLink>
       </div>
