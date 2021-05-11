@@ -30,3 +30,64 @@ img {
   color: rgb(146, 80, 253);
   transition: all ease-in-out 0.1s;
 }
+
+@media screen and (max-width: 750px) {
+  .links {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+  }
+
+  .single-link {
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 590px) {
+  .links {
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .single-link {
+    margin: 10px;
+  }
+  img {
+    width: 300px;
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 388px) {
+  .Navbar {
+    width: 100%;
+    padding: 0;
+  }
+
+  img {
+    display: flex;
+
+    left: 50%;
+    transform: translateX(-5%);
+
+    padding: 0;
+    margin: 0;
+  }
+
+  .links {
+    display: flex;
+
+    left: 50%;
+    transform: translateX(-5%);
+
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .single-link {
+    font-size: 0.8rem;
+  }
+}

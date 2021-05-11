@@ -40,7 +40,19 @@ function Statistics({ totalTime, sortTasks }) {
         {sortedTasks?.map((task, index) => {
           return (
             <div className="single-sorted-task">
-              <div className="number-circle">{index + 1}</div>
+              <div className="number-circle">
+                <p
+                  className={
+                    index < 9
+                      ? "number"
+                      : index >= 9 && index < 99
+                      ? "number-2d"
+                      : "number-3d"
+                  }
+                >
+                  {index + 1}
+                </p>
+              </div>
               <p>{task.taskName}</p>
               <h3>{formatTime(task.totalTime)}</h3>
             </div>

@@ -64,6 +64,8 @@
 
 .single-sorted-task p {
   margin-left: 10%;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .single-sorted-task h3 {
@@ -80,8 +82,149 @@
   position: absolute;
   align-self: center;
   background-color: white;
-  padding: 13px 20px;
+  padding: 30px;
   border: 2px solid rgb(207, 221, 233);
   border-radius: 100%;
-  left: 8%;
+  left: 60px;
+}
+
+.number {
+  position: absolute;
+  display: flex;
+  top: 15px;
+  left: 16px;
+  width: 100%;
+  min-width: 200%;
+}
+
+.number-2d {
+  position: absolute;
+  display: flex;
+  top: 15px;
+  left: 10px;
+  width: 100%;
+  min-width: 200%;
+}
+
+.number-3d {
+  position: absolute;
+  width: 100%;
+  min-width: 200%;
+  display: flex;
+  top: 15px;
+  left: 4px;
+  padding: 0px;
+}
+
+@media screen and (max-width: 1800px) {
+  .Statistics {
+    position: relative;
+    width: 50%;
+  }
+
+  .fa-hourglass-start {
+    position: relative;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .Statistics {
+    width: 70%;
+  }
+
+  .Statistics-totalTime {
+    padding: 0;
+  }
+
+  .Statistics-totalTime i {
+    margin: 0;
+    align-self: center;
+    margin-right: 5%;
+    margin-left: 5%;
+  }
+
+  .Statistics-totalTime p {
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .fa-hourglass-start {
+    left: -10px;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .Statistics {
+    width: 90%;
+  }
+
+  .single-sorted-task p {
+    max-width: 60%;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  .single-sorted-task {
+    width: 95%;
+    margin-left: 3%;
+  }
+
+  .number-circle {
+    left: 5%;
+  }
+
+  .number {
+    left: 20%;
+  }
+
+  .number-2d {
+    left: 8%;
+  }
+
+  .number-3d {
+    left: -5%;
+  }
+
+  .single-sorted-task p {
+    margin-left: 20%;
+    max-width: 40%;
+  }
+
+  .single-sorted-task h3 {
+    left: 70%;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .Statistics-totalTime p {
+    font-size: 1.2rem;
+    margin-right: 2%;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .Statistics-totalTime p {
+    margin: 0;
+    margin-right: 20%;
+  }
+
+  .Statistics-totalTime i {
+    font-size: 3rem;
+    margin-left: 10%;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .Statistics {
+    position: absolute;
+    display: flexbox;
+
+    left: 4%;
+    width: 100%;
+  }
 }

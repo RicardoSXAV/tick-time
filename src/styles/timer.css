@@ -10,6 +10,8 @@ h2 {
   font-size: 3em;
   color: rgb(25, 173, 75);
   margin-bottom: 15%;
+
+  overflow: auto;
 }
 
 .Timer-popup {
@@ -190,4 +192,82 @@ h2 {
 .count-down-form input {
   margin: 10px;
   padding: 20px 20px;
+}
+
+@media screen and (max-width: 1500px) {
+  .Timer {
+    width: 50%;
+    position: absolute;
+
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+
+  .count-down-form {
+    position: relative;
+    display: block;
+
+    width: 100%;
+
+    margin: 0;
+    padding: 0;
+  }
+
+  .count-down-form input {
+    width: 100px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .Timer {
+    width: 50%;
+    position: absolute;
+
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .count-down-form input {
+    width: 80px;
+    height: 20%;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .Timer {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .Timer {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 410px) {
+  .count-down-form input {
+    max-width: 60px;
+    padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .Timer-popup {
+    font-size: 0.8rem;
+  }
+
+  .btn-popup-confirm,
+  .btn-popup-cancel {
+    font-size: 0.7rem;
+    padding: 5px;
+  }
 }
